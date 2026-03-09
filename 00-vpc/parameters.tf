@@ -7,21 +7,21 @@ resource "aws_ssm_parameter" "vpc_id" {
 
 resource "aws_ssm_parameter" "public_subnet_ids" {
   name  = "/${var.project}/${var.environment}/public_subnet_ids"
-  type  = "String"
-  value = jsonencode(module.vpc.public_subnet_ids) # is a built-in Terraform function.
+  type  = "StringList"
+  value = join(module.vpc.public_subnet_ids) # is a built-in Terraform function.
           # join(",", module.vpc.public_subnet_ids)
 }
 
 resource "aws_ssm_parameter" "private_subnet_ids" {
   name  = "/${var.project}/${var.environment}/private_subnet_ids"
-  type  = "String"
-  value = jsonencode(module.vpc.private_subnet_ids) # is a built-in Terraform function.
+  type  = "StringList"
+  value = join(module.vpc.private_subnet_ids) # is a built-in Terraform function.
           # join(",", module.vpc.private_subnet_ids)
 }
 
 resource "aws_ssm_parameter" "database_subnet_ids" {
   name  = "/${var.project}/${var.environment}/database_subnet_ids"
-  type  = "String"
-  value = jsonencode(module.vpc.database_subnet_ids) # is a built-in Terraform function.
+  type  = "StringList"
+  value = join(module.vpc.database_subnet_ids) # is a built-in Terraform function.
           # join(",", module.vpc.database_subnet_ids)
 }
