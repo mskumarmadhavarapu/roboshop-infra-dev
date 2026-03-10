@@ -25,7 +25,7 @@ resource "terraform_data" "mongodb" {
   }
 
   provisioner "file" {
-    command = "bootstrap.sh" # Local file path
+    source = "bootstrap.sh" # Local file path
     destination = "/tmp/bootstrap.sh"   # Destination path on the remote machine
   }
 
