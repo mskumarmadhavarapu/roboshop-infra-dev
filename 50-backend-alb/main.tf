@@ -2,7 +2,7 @@ resource "aws_lb" "backend_alb" {
   name               = "${var.project}-${var.environment}"
   internal           = true
   load_balancer_type = "application"
-  security_groups    = local.backend_alb_sg_id
+  security_groups    = [local.backend_alb_sg_id]
   subnets            = local.private_subnet_ids
 
   # keeping it as false, just to delete using terraform while practice 
@@ -33,7 +33,7 @@ resource "aws_lb_listener" "http" {
     }
 }
 
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "backend_alb" {
   zone_id = var.zone_id
   name    = "*.backend-alb.${var.environment}.${var.domain_name}"
   type    = "A"
