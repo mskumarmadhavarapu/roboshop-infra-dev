@@ -202,6 +202,6 @@ resource "terraform_data" "catalogue_delete" {
 
   # it exeuctes in bastion
   provisioner "local-exec" {
-    commond = "aws ec2 terminate-instance ${aws_instance.catalogue.id}"
+    command = "aws ec2 terminate-instance ${aws_instance.catalogue.id}"
   }
 }
