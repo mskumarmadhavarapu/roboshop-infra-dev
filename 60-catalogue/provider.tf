@@ -7,7 +7,7 @@ terraform {
   }
  backend "s3" {
     bucket   = "remote-state-mskdaws88s" # Replace with your bucket name
-    key      = "roboshop-dev-app"
+    key      = "roboshop-dev-alb"
     region   = "us-east-1" # Replace with your desired region
     encrypt  = true                               # Encrypt state file at rest
     use_lockfile  = true
