@@ -1,20 +1,26 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name              = "${var.project}-${var.environment}.${var.domain_name}"
-    origin_id                = "${var.project}-${var.environment}.${var.domain_name}"
+    domain_name              = "frontend-${var.project}-${var.environment}.${var.domain_name}"
+    origin_id                = "frontend-${var.project}-${var.environment}.${var.domain_name}"
+
+    custom_origin_config = {
+    http_port              = 80 // Required to be set but not used
+    https_port             = 443
+    origin_protocol_policy = "https-only"
+    origin_ssl_protocol    = ["TLSv1.2", "TLSv1.3"]
+    }
   }
 
   enabled             = true
-  is_ipv6_enabled     = true
-  comment             = "Some comment"
-  default_root_object = "index.html"
-
-  aliases = ["mysite.${local.my_domain}", "yoursite.${local.my_domain}"]
+  is_ipv6_enabled     = false 
+  
+  # CDN url https://roboshop-dev.mskdaws88s.online
+  aliases = ["${var.project}-${var.environment}.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = local.s3_origin_id
+    target_origin_id = "frontend-${var.project}-${var.environment}.${var.domain_name}"
 
     forwarded_values {
       query_string = false
@@ -24,10 +30,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       }
     }
 
-    viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    viewer_protocol_policy = "https-only"
   }
 
   # Cache behavior with precedence 0
