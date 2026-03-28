@@ -3,11 +3,11 @@ resource "aws_cloudfront_distribution" "roboshop" {
     domain_name              = "frontend-${var.environment}.${var.domain_name}"
     origin_id                = "frontend-${var.environment}.${var.domain_name}"
 
-    custom_origin_config = {
+    custom_origin_config  {
     http_port              = 80 // Required to be set but not used
     https_port             = 443
     origin_protocol_policy = "https-only"
-    origin_ssl_protocol    = ["TLSv1.2", "TLSv1.3"]
+    origin_ssl_protocols    = ["TLSv1.2", "TLSv1.1"]
     }
   }
 
