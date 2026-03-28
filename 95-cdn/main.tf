@@ -41,7 +41,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
   ordered_cache_behavior {
     path_pattern     = "/images/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "frontend-${var.environment}.${var.domain_name}"
 
    viewer_protocol_policy = "https-only"
