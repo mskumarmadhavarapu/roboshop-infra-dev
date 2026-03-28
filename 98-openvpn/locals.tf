@@ -1,10 +1,11 @@
 locals {
-    cachingDisabled = data.aws_cloudfront_cache_policy.cachingDisabled.id
-    cachingOptimized = data.aws_cloudfront_cache_policy.cachingOptimized.id
-    acm_certificate_arn = data.aws_ssm_parameter.acm_certificate_arn.value
+    ami_id =  data.aws_ami.openvpn.id
     common_tags = {
         Project  = var.project
         Environment = var.environment
         Terraform  = "true"
     }
+     # public subnet in 1a AZ
+    public_subnet_id = split(",", data.aws_ssm_parameter.public_subnet_ids.value)[0]
+    openvpn_sg_id = data.aws_ssm_parameter.openvpn_sg_id.value
 }
